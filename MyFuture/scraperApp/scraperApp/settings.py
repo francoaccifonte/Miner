@@ -1,3 +1,15 @@
+import os
+import sys
+import django
+
+# DJANGO INTEGRATION:
+
+sys.path.append(os.path.dirname(os.path.abspath('.')))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'MyFuture.settings'
+django.setup()
+
+# : DJANGO INTEGRATION
+
 # Scrapy settings for scraperApp project
 #
 # For simplicity, this file contains only settings considered important or
