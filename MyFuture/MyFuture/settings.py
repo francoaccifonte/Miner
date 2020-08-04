@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'MyFuture.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rusty_scrap',
+        'USER': 'firstuser',
+        'PASSWORD': 'franco2019',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 

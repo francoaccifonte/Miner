@@ -5,3 +5,4 @@ scrapy
 scrapyd
 python-scrapyd-api
 django-extensions
+mysqlclient

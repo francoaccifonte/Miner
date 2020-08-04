@@ -78,7 +78,6 @@ def crawl(request):
         # Possible results are -> pending, running, finished
 
 
-        ACA TIRA ERROR PORQUE NO EXISTE UN PRJECTO QUE SE LLAME DEFAULT
         status = scrapyd.job_status('default', task_id)
         if status == 'finished':
             try:
