@@ -4,11 +4,11 @@ import time
 import pdb
 
 class JobsSpider(scrapy.Spider):
-    name = "test"
+    name = 'test'
 
     def start_requests(self):
-        yield scrapy.Request(url='www.google.com', callback=self.parse)
+        yield scrapy.Request(url='https://www.google.com', callback=self.parse)
             
             
     def parse(self, response):
-        yield 'farlompa'
+        yield {'farlompa': 'faralanga'}

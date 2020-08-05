@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from scrapyd_api import ScrapydAPI
 # from mainApp.utils import URLUtil
 from mainApp.models import TestModel
+import json
 
 # connect scrapyd service
 scrapyd = ScrapydAPI('http://localhost:6800')
@@ -30,8 +31,9 @@ def crawl(request):
     # Post requests are for new crawling tasks
     if request.method == 'POST':
 
-        url = request.POST.get('url', None) # take url comes from client. (From an input may be?)
-
+        params = json.loads(request.body)
+        url = params['url']
+        # import pdb; pdb.set_trace()
         if not url:
             return JsonResponse({'error': 'Missing  args'})
         
@@ -54,8 +56,7 @@ def crawl(request):
         # But we can pass other arguments, though.
         # This returns a ID which belongs and will be belong to this task
         # We are goint to use that to check task's status.
-        task = scrapyd.schedule('default', 'icrawler', 
-            settings=settings, url=url, domain=domain)
+        task = scrapyd.schedule('default', 'test')
 
         return JsonResponse({'task_id': task, 'unique_id': unique_id, 'status': 'started' })
 
