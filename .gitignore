@@ -1,2 +1,5 @@
 __pycache__/
 env/
+*.pid
+*.log
+default.db
