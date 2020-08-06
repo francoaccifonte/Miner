@@ -4,10 +4,9 @@ from django.utils import timezone
 
 class TestModel(models.Model):
     unique_id = models.CharField(max_length=100, null=True)
-    data = models.TextField() # this stands for our crawled data
+    data = models.TextField()
     date = models.DateTimeField(default=timezone.now)
     
-    # This is for basic and custom serialisation to return it to client as a JSON.
     @property
     def to_dict(self):
         data = {
