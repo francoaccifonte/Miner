@@ -83,6 +83,7 @@ DATABASES = {
         'PASSWORD': 'franco2019',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+        'TIME_ZONE' : 'America/Argentina/Buenos_Aires',
     }
 }
 
