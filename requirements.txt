@@ -4,5 +4,6 @@ selenium
 scrapy
 scrapyd
 python-scrapyd-api
+django
 django-extensions
 mysqlclient
