@@ -16,7 +16,7 @@ scrapyd = ScrapydAPI('http://localhost:6800')
 @require_http_methods(['POST', 'GET'])
 def crawl(request):
     if request.method == 'POST':
-        task = scrapyd.schedule('default', 'test')
+        task = scrapyd.schedule('default', 'linkedinJobCard')
         return JsonResponse({'task_id': task, 'status': 'started' })
 
     elif request.method == 'GET':

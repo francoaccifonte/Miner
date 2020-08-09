@@ -1,9 +1,12 @@
 from django.conf import settings
 from django.conf.urls import url,static
+from django.urls import path, re_path
 from django.views.generic import TemplateView
-from mainApp import views
+from mainApp.views import crawl
+from mainApp.views import dbView
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
-    url(r'^api/crawl/', views.crawl, name='crawl'),
+    path('api/crawl/', crawl, name='crawl'),
+    path('api/view/', dbView, name='dbView'),
+    re_path(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
 ]
