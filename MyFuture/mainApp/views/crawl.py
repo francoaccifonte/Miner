@@ -5,18 +5,24 @@ from django.core.exceptions import ValidationError
 from django.views.decorators.http import require_POST, require_http_methods
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from scrapyd_api import ScrapydAPI
 from mainApp.models import TestModel
 import json
 
 scrapyd = ScrapydAPI('http://localhost:6800')
+projects = scrapyd.list_projects()
+spiders = scrapyd.list_spiders(projects)
 
 @csrf_exempt
 @require_http_methods(['POST', 'GET'])
-def crawl(request):
+def crawl(request,spider=''):
+    if spider not in spiders:
+        raise Http404("Spider doesn't exist.")
+
     if request.method == 'POST':
-        task = scrapyd.schedule('default', 'linkedinJobCard')
+        task = scrapyd.schedule('default', spider)
         return JsonResponse({'task_id': task, 'status': 'started' })
 
     elif request.method == 'GET':

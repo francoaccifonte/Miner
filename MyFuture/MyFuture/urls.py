@@ -6,7 +6,7 @@ from mainApp.views import crawl
 from mainApp.views import dbView
 
 urlpatterns = [
-    path('api/crawl/', crawl, name='crawl'),
+    path('<str:spider>/crawl/', crawl, name='crawl'),
     path('api/view/', dbView, name='dbView'),
     re_path(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
 ]

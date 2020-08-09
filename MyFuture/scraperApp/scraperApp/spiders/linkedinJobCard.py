@@ -11,7 +11,7 @@ import pdb
 import json
 
 class JobsSpider(scrapy.Spider):
-    name = "linkedinJobCard"
+    name = "jobs"
     configure_logging(install_root_handler=False)
 
     def start_requests(self):
