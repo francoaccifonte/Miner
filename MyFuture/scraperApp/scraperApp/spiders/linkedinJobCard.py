@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from w3lib.html import remove_tags
 from scrapy.utils.log import configure_logging
+from scrapy_selenium import SeleniumRequest
 import logging
 import pdb
 import json
@@ -14,24 +15,19 @@ class JobsSpider(scrapy.Spider):
     configure_logging(install_root_handler=False)
 
     def start_requests(self):
-        driver = webdriver.Chrome('./support/chromedriver_linux')
-        search_url0 = 'https://www.linkedin.com/jobs/'
         query = 'Python'
         place = 'Germany'
         search_url = 'https://www.linkedin.com/jobs/search?keywords=' + query.lower() + '&location=' + place.lower()
-        jobs_to_scrape = 20
-
-        driver.get(search_url)
-        urls = []
-        for jj in range(1, jobs_to_scrape + 1):
-            urls.append(driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li[' + str(jj) + ']/a').get_attribute('href'))
-        # pdb.set_trace()
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+        self.jobs_to_scrape = 20
+        yield SeleniumRequest(url=search_url, callback=self.get_job_urls)
+    
+    def get_job_urls(self,response):
+        for jj in range(1, self.jobs_to_scrape + 1):
+            url=response.xpath('//*[@id="main-content"]/div/section/ul/li[' + str(jj) + ']/a/@href').get()
+            yield SeleniumRequest(url=url, callback=self.parse)
             
             
     def parse(self, response):
-        text = response.selector.xpath('/html/body/main/section[1]/section[3]/div/section/div/text()').get()
-        filename = './stuff/results/jobs-%s.json' % self.index
+        text = response.xpath('/html/body/main/section[1]/section[3]/div/section/div/text()').get()
         data = { 'url': response.url, 'text': text }
         yield data

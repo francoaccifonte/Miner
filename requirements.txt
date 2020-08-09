@@ -3,6 +3,7 @@ requests
 selenium
 scrapy
 scrapyd
+scrapy-selenium
 python-scrapyd-api
 django
 django-extensions
