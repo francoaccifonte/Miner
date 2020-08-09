@@ -16,7 +16,6 @@ scrapyd = ScrapydAPI('http://localhost:6800')
 @require_http_methods(['POST', 'GET'])
 def crawl(request):
     if request.method == 'POST':
-        params = json.loads(request.body)
         task = scrapyd.schedule('default', 'test')
         return JsonResponse({'task_id': task, 'status': 'started' })
 
