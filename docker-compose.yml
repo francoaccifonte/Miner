@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  # db:
+  #   image: mysql
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=rootpw
+  #     - MYSQL_DATABASE=rusty_scrap
+  #     - MYSQL_USER=firstuser
+  #     - MYSQL_PASSWORD=franco2019
+  #     - MYSQL_ROOT_HOST='%'
+  #   ports:
+  #     - "3306:3306"
+
+  web:
+    build: .
+    image: scraper:latest
+    command: python MyFuture/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/home/app/
+    # ports:
+    #   - "8000:8000"
+    # depends_on:
+    #   - db
+    stdin_open: true
+    tty: true
+    network_mode: host
+    environment:
+      - READ_DOTENV=1
+      - SCRAPPER_ADDRESS=scraper:6800
+
+  scraper:
+    image: scraper:latest
+    command: bash -c "cd MyFuture/scraperApp/ && scrapyd"
+    volumes:
+      - .:/home/app/
+    # ports:
+    #   - "6800:6800"
+    network_mode: host
+    stdin_open: true
+    tty: true
+    environment:
+      - WEB_ADDRESS=web

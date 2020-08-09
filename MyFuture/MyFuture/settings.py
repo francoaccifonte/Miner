@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'rusty_scrap',
         'USER': 'firstuser',
         'PASSWORD': 'franco2019',
-        'HOST': '127.0.0.1',
+        'HOST': '0.0.0.0',
         'PORT': '3306',
     }
 }

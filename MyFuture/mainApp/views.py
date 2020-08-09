@@ -9,14 +9,14 @@ from django.views.decorators.csrf import csrf_exempt
 from scrapyd_api import ScrapydAPI
 from mainApp.models import TestModel
 import json
+from os import environ
 
-scrapyd = ScrapydAPI('http://localhost:6800')
+scrapyd = ScrapydAPI(environ['SCRAPPER_ADDRESS'])
 
 @csrf_exempt
 @require_http_methods(['POST', 'GET'])
 def crawl(request):
     if request.method == 'POST':
-        params = json.loads(request.body)
         task = scrapyd.schedule('default', 'test')
         return JsonResponse({'task_id': task, 'status': 'started' })
 
