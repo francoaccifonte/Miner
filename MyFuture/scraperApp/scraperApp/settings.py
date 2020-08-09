@@ -69,7 +69,7 @@ DOWNLOADER_MIDDLEWARES = {
 }
 # Configs for selenium
 SELENIUM_DRIVER_NAME = 'firefox'
-SELENIUM_DRIVER_EXECUTABLE_PATH = '/home/cecilia/Documentos/scrap/Miner/MyFuture/scraperApp/drivers/geckodriver'
+SELENIUM_DRIVER_EXECUTABLE_PATH = './drivers/geckodriver'
 SELENIUM_DRIVER_ARGUMENTS=['-headless']  # '--headless' if using chrome instead of firefox
 
 # Enable or disable extensions
