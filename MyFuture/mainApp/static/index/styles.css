@@ -1,0 +1,17 @@
+body {
+  background-color: darkslategrey;
+}
+nav {
+  background-color: cadetblue;
+  border: black ridge 5px;
+}
+.nav_button{
+  border: black ridge 5px;
+}
+h1, h2, p{
+  color: antiquewhite;
+}
+a{
+  color: antiquewhite;
+  text-decoration: none;
+}
