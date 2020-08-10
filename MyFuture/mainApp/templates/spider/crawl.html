@@ -5,6 +5,12 @@
         <meta charset="UTF-8">
         <title>Crawly - About</title>
         <link rel="stylesheet" type="text/css" href="{% static 'index/styles.css' %}">
+        <script>
+            function redirect(){
+                setTimeout(() => { window.location.replace("{% url 'spider' spider %}"); }, 5000);                
+            }
+            redirect();
+        </script>
     </head>
     <body>
         <h1>Crawly</h1>
@@ -18,9 +24,10 @@
         </nav>
         <main>
             <h2>{{spider}}</h2>
-            <form action="{% url 'crawl' spider %}" method="POST">
-                <button>Crawl</button>
-            </form>
+            {% if status == "started" %}
+            <p>Spider has been started with task id: {{task_id}}.</p>
+            <p>We will now redirect you to the result page</p>
+            {% endif %}
         </main>
         <footer>
             <hr>
