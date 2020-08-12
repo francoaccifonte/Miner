@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Crawly - About</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'index/styles.css' %}">
+    </head>
+    <body>
+        <h1>Crawly</h1>
+        <p>Ready for the next big step? Choose from the options below:</p>
+        <nav>
+            {% for spider in spider_list %}
+            <span class="nav_button">
+            <a href="{%url 'spider' spider%}">{{spider}}</a>
+            </span>
+            {% endfor %}
+        </nav>
+        <main>
+            <h2>DB View</h2>
+            <table class="tg">
+                <thead>
+                  <tr>
+                    <th class="tg-0lax">id</th>
+                    <th class="tg-0lax">unique id</th>
+                    <th class="tg-0lax">data</th>
+                    <th class="tg-0lax">date</th>
+                  </tr>
+                </thead>
+                {% for entry in entry_list%}
+                <tbody>
+                  <tr>
+                    <td class="tg-0lax">{{entry.id}}</td>
+                    <td class="tg-0lax">{{entry.unique_id}}</td>
+                    <td class="tg-0lax">{{entry.data}}</td>
+                    <td class="tg-0lax">{{entry.date}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+        </main>
+        <footer>
+            <hr>
+            <p>Made with <em>love</em> by Fran and Ceci.</p>
+        </footer>
+        </body>
+</html>
