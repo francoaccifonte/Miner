@@ -7,5 +7,5 @@ def spider(request,spider=''):
     spider_list = scrapyd.list_spiders(projects)
     if spider not in spider_list:
         raise Http404("Spider doesn't exist.")
-    context={'spider_list':spider_list,'spider':spider}
+    context={'spider':spider}
     return render(request, 'spider/spider.html',context)

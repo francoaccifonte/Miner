@@ -23,8 +23,8 @@ def crawl(request,spider=''):
 
     if request.method == 'POST':
         task = scrapyd.schedule('default', spider)
-        context={'spider_list':spiders,'spider':spider,'task_id':task,'status':'started'}
-        return render(request, "spider/crawl.html",context)
+        context={'spider':spider,'task_id':task,'status':'started'}
+        return render(request, "spider/crawl.html", context)
 
     elif request.method == 'GET':
         task_id = request.GET.get('task_id', None)

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Crawly - About</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'index/styles.css' %}">
+    </head>
+    <body>
+        <h1>Crawly</h1>
+        <p>Ready for the next big step? Choose from the options below:</p>
+        <nav>
+            {% for spider in spider_list %}
+            <span class="nav_button">
+            <a href="{%url 'spider' spider%}">{{spider}}</a>
+            </span>
+            {% endfor %}
+        </nav>
+        <main>
+            {% block main %}
+            <p>Something may have gone wrong.</p>
+            {% endblock%}    
+        </main>
+        <footer>
+            <hr>
+            <p>Made with <em>love</em> by Fran and Ceci.</p>
+        </footer>
+        </body>
+</html>
