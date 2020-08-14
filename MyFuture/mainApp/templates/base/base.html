@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Crawly - About</title>
+        <title>{% block title %}Crawly{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="{% static 'index/styles.css' %}">
         {% block script %}
         {% endblock %}
@@ -14,14 +14,14 @@
         <nav>
             {% for spider in spider_list %}
             <span class="nav_button">
-            <a href="{%url 'spider' spider%}">{{spider}}</a>
+            <a href="{%url 'spider' spider%}">{{ spider | capfirst }}</a>
             </span>
             {% endfor %}
         </nav>
         <main>
             {% block main %}
             <p>Something may have gone wrong.</p>
-            {% endblock%}    
+            {% endblock %}    
         </main>
         <footer>
             <hr>
