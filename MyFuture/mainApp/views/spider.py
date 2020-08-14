@@ -1,10 +1,7 @@
 from django.shortcuts import render
-from scrapyd_api import ScrapydAPI
+from django.http import Http404
 
-def spider(request,spider=''):
-    scrapyd = ScrapydAPI('http://localhost:6800')
-    projects = scrapyd.list_projects()
-    spider_list = scrapyd.list_spiders(projects)
+def spider(request,spider='',spider_list=[]):
     if spider not in spider_list:
         raise Http404("Spider doesn't exist.")
     context={'spider':spider}

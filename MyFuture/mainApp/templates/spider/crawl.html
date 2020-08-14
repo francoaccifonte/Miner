@@ -1,4 +1,12 @@
 {% extends "../base/base.html" %}
+{% block script %}
+<script>
+    function redirect(){
+        setTimeout(() => { window.location.replace("{% url 'spider' spider %}"); }, 5000);                
+    }
+    redirect();
+</script>
+{% endblock %}
 {% block main %}
 <h2>{{spider}}</h2>
 {% if status == "started" %}
