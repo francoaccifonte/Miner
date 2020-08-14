@@ -18,5 +18,6 @@ class RealStateModel(models.Model):
     town = models.CharField(max_length=256, null=True)
     country = models.CharField(max_length=256, default='argentina')
 
+    description = models.TextField(null=True)
     raw_data = models.TextField()
     date = models.DateTimeField(default=timezone.now)
