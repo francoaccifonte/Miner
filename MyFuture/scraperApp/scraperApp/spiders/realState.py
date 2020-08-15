@@ -1,22 +1,37 @@
 import scrapy
 from scrapy_selenium import SeleniumRequest
+import json
+
+# TODOS: 
+# By default it only scrapes the first result page. We should parameterize the break point.
+# Research response.urljoin(url) to build absolute from relative. The method start_requests extracts relative urls
+# Check if an item with the same url exists, and decide weather to scrap it or not.
 
 
 class RealstateSpider(scrapy.Spider):
     name = 'realState_zonaprop'
     model_class = 'RealStateModel'
     allowed_domains = ['zonaprop.com']
+    base_url = 'https://www.zonaprop.com.ar/'
     custom_settings = {
         'ITEM_PIPELINES': {
             'scraperApp.pipelines.RealStatesPipeline': 10,
         }
     }
 
-    def start_requests(self, city='colegiales', query='departamento alquiler'):
-        self.base_url = 'https://www.zonaprop.com.ar/'
-        # yield SeleniumRequest(url='https://www.zonaprop.com.ar/propiedades/venta-de-departamento-en-colegiales-46203061.html', callback=self.parse)
-        query = query.replace(' ', '-')
-        city = city.replace(' ', '-')
+    def __init__(self, params=None, *args, **kwargs):
+        if not params:
+            self.missing_params_error()
+        params = json.loads(params)
+        if not all (k in params for k in ('query','city')):
+            raise ValueError("Required parameters: params= { 'query': '', 'city: '' }")
+        # NOTE: Not sure if raising an error is the way to go here.
+        super(RealstateSpider, self).__init__(*args, **kwargs)
+        self.params = params
+
+    def start_requests(self):
+        query = self.params['query'].replace(' ', '-')
+        city = self.params['city'].replace(' ', '-')
         search_url = self.base_url + query + '-q-' + city + '.html'
         yield SeleniumRequest(url=search_url, callback=self.extract_urls)
 
@@ -29,7 +44,7 @@ class RealstateSpider(scrapy.Spider):
             # TODO: Review this xpath, try to use a shorter one.
             if relative_url == None: continue
             url = self.base_url + relative_url
-            # TODO: research response.urljoin(url) to build absolute from relative.
+            print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa URL: ' + url)
             yield SeleniumRequest(url=url, callback=self.parse)
 
     def parse(self, response):
@@ -47,6 +62,7 @@ class RealstateSpider(scrapy.Spider):
         #     'icon-f icon-f-inmueble',
         #     'icon-f icon-f-luminosidad',
         # ]
+        print('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb URL: ' + url)
         item = {
             # 'model': self.model_class,
             'url': response.url,
@@ -65,9 +81,3 @@ class RealstateSpider(scrapy.Spider):
         else:
             item['rent_price'] = price
         yield item
-
-
-# Lacking fields:
-# buy_currency
-# rent_currency
-# expenses_currency

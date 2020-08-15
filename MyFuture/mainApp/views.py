@@ -16,7 +16,11 @@ scrapyd = ScrapydAPI('http://localhost:6800')
 @require_http_methods(['POST', 'GET'])
 def crawl(request):
     if request.method == 'POST':
-        task = scrapyd.schedule('default', 'realState')
+        city = 'recoleta'
+        query = 'loft alquiler'
+        params = { 'city': city, 'query': query }
+        params = json.dumps(params)
+        task = scrapyd.schedule('default', 'realState_zonaprop', params=params)
         return JsonResponse({'task_id': task, 'status': 'started' })
 
     elif request.method == 'GET':

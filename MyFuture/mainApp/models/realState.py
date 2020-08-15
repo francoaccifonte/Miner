@@ -21,3 +21,4 @@ class RealStateModel(models.Model):
     description = models.TextField(null=True)
     raw_data = models.TextField()
     date = models.DateTimeField(default=timezone.now)
+    score = models.FloatField(null=True)
