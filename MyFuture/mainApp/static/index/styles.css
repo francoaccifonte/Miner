@@ -1,20 +1,9 @@
-body {
-  background-color: darkslategrey;
-}
-nav {
-  background-color: cadetblue;
-  border: black ridge 5px;
-}
-.nav_button{
-  border: black ridge 5px;
-}
-h1, h2, p{
-  color: antiquewhite;
-}
-a{
-  color: antiquewhite;
-  text-decoration: none;
-}
+body {background-color: darkslategrey;}
+nav {background-color: cadetblue;border: black ridge 5px;}
+footer {text-align: center;}
+.nav_button {border: black ridge 5px;}
+h1, h2, p {color: antiquewhite;}
+a {color: antiquewhite;text-decoration: none;}
 .tg  {border-collapse:collapse;border-color:#bbb;border-spacing:0;}
 .tg td{background-color:#E0FFEB;border-color:#bbb;border-style:solid;border-width:1px;color:#594F4F;
   font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}

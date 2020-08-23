@@ -11,7 +11,7 @@ import pdb
 import json
 
 class JobsSpider(scrapy.Spider):
-    name = "jobs"
+    name = "linkedinJobCard"
     configure_logging(install_root_handler=False)
 
     def start_requests(self):
@@ -31,3 +31,4 @@ class JobsSpider(scrapy.Spider):
         text = response.xpath('/html/body/main/section[1]/section[3]/div/section/div/text()').get()
         data = { 'url': response.url, 'text': text }
         yield data
+        

@@ -6,3 +6,4 @@ def spider(request,spider='',spider_list=[]):
         raise Http404("Spider doesn't exist.")
     context={'spider':spider}
     return render(request, 'spider/spider.html',context)
+    

@@ -6,3 +6,4 @@ def dbView(request):
     entry_list=TestModel.objects.order_by('-date')[:5]
     context={'entry_list':entry_list}
     return render(request, 'api/dbView.html', context)
+    
