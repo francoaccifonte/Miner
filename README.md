@@ -15,7 +15,7 @@ sudo mysql -u root
 Then create the database and django credentials
 ```
 CREATE DATABASE rusty_scrap;
-CREATE USER 'firstuser'@'localhost' INDENTIFIED BY 'franco2019';
+CREATE USER 'firstuser'@'localhost' IDENTIFIED BY 'franco2019';
 GRANT ALL ON rusty_scrap.* TO 'firstuser'@'localhost';
 FLUSH PRIVILEGES;
 ```
@@ -24,6 +24,9 @@ FLUSH PRIVILEGES;
 python3 -m venv env/
 source env/bin/activate
 .\env\Scripts\Activate.ps1
+pip install --upgrade setuptools
+pip install ---upgrade pip
+pip install wheel
 pip3 install -r requirements.txt
 deactivate
 ```
