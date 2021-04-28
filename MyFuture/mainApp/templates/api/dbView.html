@@ -1,0 +1,27 @@
+{% extends "../base/base.html" %}
+{% block title %}
+Crawly - DB View
+{% endblock %}
+{% block main %}
+<h2>DB View</h2>
+<table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-0lax">id</th>
+        <th class="tg-0lax">unique id</th>
+        <th class="tg-0lax">data</th>
+        <th class="tg-0lax">date</th>
+      </tr>
+    </thead>
+    {% for entry in entry_list%}
+    <tbody>
+      <tr>
+        <td class="tg-0lax">{{entry.id}}</td>
+        <td class="tg-0lax">{{entry.unique_id}}</td>
+        <td class="tg-0lax">{{entry.data}}</td>
+        <td class="tg-0lax">{{entry.date}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

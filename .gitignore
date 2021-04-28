@@ -3,3 +3,4 @@ env/
 *.pid
 *.log
 default.db
+.vscode

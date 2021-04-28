@@ -1,0 +1,19 @@
+{% extends "../base/base.html" %}
+{% block title %}
+Crawly - {{ spider| capfirst }} - Crawl
+{% endblock %}
+{% block script %}
+<script>
+    function redirect(){
+        setTimeout(() => { window.location.replace("{% url 'spider' spider %}"); }, 5000);                
+    }
+    redirect();
+</script>
+{% endblock %}
+{% block main %}
+<h2>{{ spider | capfirst }}</h2>
+{% if status == "started" %}
+<p>Spider has been started with task id: {{task_id}}.</p>
+<p>We will now redirect you to the result page</p>
+{% endif %}
+{% endblock %}

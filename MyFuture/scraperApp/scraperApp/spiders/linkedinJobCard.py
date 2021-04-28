@@ -31,3 +31,4 @@ class JobsSpider(scrapy.Spider):
         text = response.xpath('/html/body/main/section[1]/section[3]/div/section/div/text()').get()
         data = { 'url': response.url, 'text': text }
         yield data
+        

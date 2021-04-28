@@ -1,10 +1,6 @@
-from uuid import uuid4
-from urllib.parse import urlparse
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
 from django.views.decorators.http import require_POST, require_http_methods
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from scrapyd_api import ScrapydAPI
 from mainApp.models import TestModel
@@ -14,10 +10,14 @@ scrapyd = ScrapydAPI('http://localhost:6800')
 
 @csrf_exempt
 @require_http_methods(['POST', 'GET'])
-def crawl(request):
+def crawl(request,spider='',spider_list=[]):
+    if spider not in spider_list:
+        raise Http404("Spider doesn't exist.")
+
     if request.method == 'POST':
-        task = scrapyd.schedule('default', 'test')
-        return JsonResponse({'task_id': task, 'status': 'started' })
+        task = scrapyd.schedule('default', spider)
+        context={'spider':spider,'task_id':task,'status':'started'}
+        return render(request, "spider/crawl.html", context)
 
     elif request.method == 'GET':
         task_id = request.GET.get('task_id', None)
