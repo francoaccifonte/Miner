@@ -5,5 +5,5 @@ from mainApp import views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
-    url(r'^api/crawl/', views.crawl, name='crawl'),
+    url(r'^api/crawl/', views.CrawlView.as_view(), name='crawl'),
 ]

@@ -8,24 +8,22 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from scrapyd_api import ScrapydAPI
 from mainApp.models import TestModel
+from django.views import View
 import json
+from .app_view import AppView
 
-scrapyd = ScrapydAPI('http://localhost:6800')
+class CrawlView(AppView):
+    def __init__(self, scrapyd = ScrapydAPI('http://localhost:6800')):
+        super(AppView, self).__init__()
+        self.scrapyd = scrapyd
 
-@csrf_exempt
-@require_http_methods(['POST', 'GET'])
-def crawl(request):
-    if request.method == 'POST':
-        task = scrapyd.schedule('default', 'test')
-        return JsonResponse({'task_id': task, 'status': 'started' })
-
-    elif request.method == 'GET':
+    def get(self, request):
         task_id = request.GET.get('task_id', None)
-        unique_id = request.GET.get('unique_id', None)
-        if not task_id or not unique_id:
-            return JsonResponse({'error': 'Missing args'})
+        unique_id = request.GET.get('unique_id', None) # creo que quedo de una prueba. sacarlo?
+        if not task_id and not unique_id:
+            return self.missing_arguments_response()
 
-        status = scrapyd.job_status('default', task_id)
+        status = self.scrapyd.job_status('default', task_id)
         if status == 'finished':
             try:
                 import pdb; pdb.set_trace()
@@ -35,3 +33,8 @@ def crawl(request):
                 return JsonResponse({'error': str(e)})
         else:
             return JsonResponse({'status': status})
+    
+    def post(self, request):
+        from pdb import set_trace as st; st()
+        task = self.scrapyd.schedule('default', 'test')
+        return JsonResponse({'task_id': task, 'status': 'started' })
